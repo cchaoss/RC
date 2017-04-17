@@ -51,7 +51,7 @@ void SPI1_INIT(void)
 u8 SPI_RW(u8 dat) 
 { 
     while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET); 
-    SPI_I2S_SendData(SPI1, dat); 
+    SPI_I2S_SendData(SPI1, dat);//其实这里的函数原型输入是uint16_t类型的
     while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);  
     return SPI_I2S_ReceiveData(SPI1); 
 }

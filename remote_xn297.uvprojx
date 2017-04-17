@@ -417,11 +417,6 @@
           <GroupName>Src</GroupName>
           <Files>
             <File>
-              <FileName>delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Src\delay.c</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\main.c</FilePath>
@@ -480,6 +475,16 @@
               <FileName>stick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\stick.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>lt8900.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\lt8900.c</FilePath>
             </File>
           </Files>
         </Group>

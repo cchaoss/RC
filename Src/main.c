@@ -10,8 +10,9 @@
 #include "stick.h"
 #include "timer.h"
 #include "xn297.h"
+#include "lt8900.h"
 #include "protocol.h"
-
+#include "delay.h"
 
 int main(void) {
 	
@@ -24,7 +25,9 @@ int main(void) {
 	LedInit();	                  			//IO初始化
 	Adc_Init();								//摇杆AD初始化
 	KeyInit();								//按键初始化
-	XN297_Init();							//初始化射频芯片
+	//XN297_Init();							//初始化射频芯片
+	LT8900_init();
+	
 	TIM4_Init(SysClock,TIME4_Preiod);		//定时器4初始化，定时时间单位：(TIME4_Preiod)微秒
 	LoadRCdata(AMERICAN_RC_MODE);           //摇杆赋值
 	
@@ -37,8 +40,9 @@ int main(void) {
 			//printf("rol:%d\r,pit:%d\r,thr:%d\r,yaw:%d\r\r\r",flag.Stick_Data[ROLL],flag.Stick_Data[PITCH],flag.Stick_Data[THRO],flag.Stick_Data[YAW]);
 			//printf("modif:%d\r,change:%d\r\r\r",flag.modifyaddr,flag.change_addr);
 			//for(;i<5;i++)
-			printf("c0:%d\r,c1:%d\r,c2:%d\r,c3:%d\r\r\r",flag.TX_Channel[0],flag.TX_Channel[1],flag.TX_Channel[2],flag.TX_Channel[3]);
-			printf("d0:%d\r,d1:%d\r,d2:%d\r,d3:%d\r,d4:%d\r\r\r",flag.TX_Addr[0],flag.TX_Addr[1],flag.TX_Addr[2],flag.TX_Addr[3],flag.TX_Addr[4]);
+			//printf("c0:%d\r,c1:%d\r,c2:%d\r,c3:%d\r\r\r",flag.TX_Channel[0],flag.TX_Channel[1],flag.TX_Channel[2],flag.TX_Channel[3]);
+			//printf("d0:%d\r,d1:%d\r,d2:%d\r,d3:%d\r,d4:%d\r\r\r",flag.TX_Addr[0],flag.TX_Addr[1],flag.TX_Addr[2],flag.TX_Addr[3],flag.TX_Addr[4]);
+			
 		}
 
 	

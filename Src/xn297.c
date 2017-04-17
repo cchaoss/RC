@@ -102,17 +102,15 @@ void XN297_SetChannel( uint8_t Channel)
 }
 
 /******************************************************************************/
-//            发送数据：
-//            参数：
-//              1. ucPayload：需要发送的数据首地址
-//              2. length:  需要发送的数据长度
-//              Return:
-//              1. MAX_RT: TX Failure  (Enhance mode)
-//              2. TX_DS:  TX Successful (Enhance mode)
-//              note: Only use in Tx Mode
-//              length 通常等于 PAYLOAD_WIDTH
+//发送数据：
+//参数：1. ucPayload：需要发送的数据首地址
+//      2. length:  需要发送的数据长度
+//Return:
+//      1. MAX_RT: TX Failure  (Enhance mode)
+//      2. TX_DS:  TX Successful (Enhance mode)
+//      note: Only use in Tx Mode
+//      length 通常等于 PAYLOAD_WIDTH
 /******************************************************************************/
-
 void XN297_TxData( uint8_t *ucPayload,  uint8_t length)
 {
     /*if(0==ucRF_GetStatus())                                                       // rf free status                                                                                                                                                                   
@@ -185,6 +183,7 @@ void XN297_Init(void)
 	//IRQ_STATUS=0;
 	
     SPI1_INIT();//初始化硬件SPI
+	delay_ms(2);
     SPI_CE_L();
 	SPI_CSN_H();
 	
