@@ -3,6 +3,7 @@
 #include "stm32f10x.h"
 #include "stm32f10x_it.h"
 #include "sys_fun.h"
+#include "delay.h"
 #include "uart.h"
 #include "stmflash.h"
 #include "led.h"
@@ -10,9 +11,10 @@
 #include "stick.h"
 #include "timer.h"
 #include "xn297.h"
+#include "nrf24l01.h"
 #include "lt8900.h"
 #include "protocol.h"
-#include "delay.h"
+
 
 int main(void) {
 	
@@ -25,42 +27,50 @@ int main(void) {
 	LedInit();	                  			//IO初始化
 	Adc_Init();								//摇杆AD初始化
 	KeyInit();								//按键初始化
-	//XN297_Init();							//初始化射频芯片
+#ifdef NRF24L01
+	NRF24L01_INIT();
+#endif
+#ifdef XN297
+	XN297_Init();							//初始化射频芯片
+#endif
+#ifdef LT8900	
 	LT8900_init();
-	
+#endif
 	TIM4_Init(SysClock,TIME4_Preiod);		//定时器4初始化，定时时间单位：(TIME4_Preiod)微秒
 	LoadRCdata(AMERICAN_RC_MODE);           //摇杆赋值
 	
 	
 	while(1) { 
-
+		
 		if(_20hz) {		
 			_20hz = 0;
 			checkKey();
-			//printf("rol:%d\r,pit:%d\r,thr:%d\r,yaw:%d\r\r\r",flag.Stick_Data[ROLL],flag.Stick_Data[PITCH],flag.Stick_Data[THRO],flag.Stick_Data[YAW]);
-			//printf("modif:%d\r,change:%d\r\r\r",flag.modifyaddr,flag.change_addr);
-			//for(;i<5;i++)
-			//printf("c0:%d\r,c1:%d\r,c2:%d\r,c3:%d\r\r\r",flag.TX_Channel[0],flag.TX_Channel[1],flag.TX_Channel[2],flag.TX_Channel[3]);
-			//printf("d0:%d\r,d1:%d\r,d2:%d\r,d3:%d\r,d4:%d\r\r\r",flag.TX_Addr[0],flag.TX_Addr[1],flag.TX_Addr[2],flag.TX_Addr[3],flag.TX_Addr[4]);
 			
+			//printf("len:%d\r,thro:%d\r\r\r",LT8900_Recv_Buffer[0],LT8900_Recv_Buffer[1]);
+			//printf("rol:%d\r,pit:%d\r,thr:%d\r,yaw:%d\r\r\r",remoteData.roll_h<<8|remoteData.roll_l,remoteData.pitch_h<<8|remoteData.pitch_l,remoteData.thro_h<<8|remoteData.thro_l,remoteData.yaw_h<<8|remoteData.yaw_l);
+			//printf("modif:%d\r,change:%d\r\r\r",flag.modifyaddr,flag.change_addr);
+			//printf("c0:%d\r,c1:%d\r,c2:%d\r,c3:%d\r\r\r",flag.TX_Channel[0],flag.TX_Channel[1],flag.TX_Channel[2],flag.TX_Channel[3]);
+			//printf("d0:%d\r,d1:%d\r,d2:%d\r,d3:%d\r,d4:%d\r\r\r",flag.TX_Addr[0],flag.TX_Addr[1],flag.  
 		}
-
-	
+		
 		if(_50hz) {
 			_50hz = 0;
 			LoadRCdata(AMERICAN_RC_MODE);
-
+			
 		}
 		
 		
 		if(_100hz) {
 			_100hz = 0;
+			rx_send();
+			/*
 			if(flag.modifyaddr) 
 				modifyAddress();
 			else {
 				LedSet(5,0);
 				rx_send();
 			}
+			*/
 		}
 	
 

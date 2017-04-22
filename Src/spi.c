@@ -1,5 +1,6 @@
 #include "spi.h"
 #include "stdio.h"
+#include "protocol.h"
 
 void SPI1_INIT(void)
 {
@@ -36,7 +37,11 @@ void SPI1_INIT(void)
     SPI_InitStructure.SPI_Mode = SPI_Mode_Master; //主模式 
     SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b; //数据大小8位 
     SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low; //时钟极性，空闲时为低 
+#ifndef LT8900
     SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge; //第1个边沿有效，上升沿为采样时刻 
+#else
+	SPI_InitStructure.SPI_CPHA = SPI_CPHA_2Edge;
+#endif
     SPI_InitStructure.SPI_NSS = SPI_NSS_Soft; //NSS信号由软件产生 
     SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8; //8分频，9MHz 
     SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB; //高位在前 

@@ -1,7 +1,11 @@
 #ifndef _PROTOCOL_H_
 #define _PROTOCOL_H_
-
 #include "stm32f10x.h"
+
+//只能三选一
+//#define NRF24L01
+//#define XN297
+#define LT8900
 
 extern unsigned char TX_ADDRESS_DEF[5];
 

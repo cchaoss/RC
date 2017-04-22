@@ -1,13 +1,19 @@
 #include "stm32f10x_it.h"
 #include "timer.h"
 
-u16 _20hz,_50hz,_100hz,_200hz;
-u16 flag20Hzcnt,flag50Hzcnt,flag100Hzcnt,flag200Hzcnt;
+u16 _2hz,_20hz,_50hz,_100hz,_200hz;
+u16 flag2Hzcnt,flag20Hzcnt,flag50Hzcnt,flag100Hzcnt,flag200Hzcnt;
 
 void TIM4_IRQHandler(void)		//1ms中断一次,用于遥控器主循环
 {
     if( TIM_GetITStatus(TIM4 , TIM_IT_Update) != RESET ) 
 	{     
+		if(++flag2Hzcnt == 500)//2hz
+		{
+			flag2Hzcnt = 0;
+			_2hz = 1;
+		}
+		
 		if(++flag20Hzcnt == 50)//20Hz
 		{
 			flag20Hzcnt = 0;

@@ -437,11 +437,6 @@
               <FilePath>.\Src\Sys_Fun.c</FilePath>
             </File>
             <File>
-              <FileName>xn297.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Src\xn297.c</FilePath>
-            </File>
-            <File>
               <FileName>key.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\key.c</FilePath>
@@ -485,6 +480,16 @@
               <FileName>lt8900.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\lt8900.c</FilePath>
+            </File>
+            <File>
+              <FileName>nrf24l01.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\nrf24l01.c</FilePath>
+            </File>
+            <File>
+              <FileName>xn297.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\xn297.c</FilePath>
             </File>
           </Files>
         </Group>

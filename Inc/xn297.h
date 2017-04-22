@@ -4,7 +4,7 @@
 #include "stm32f10x.h"
 
 #define         DEFAULT_CHANNEL      0						//初始化时的频率：  2400 MHz           
-#define         PAYLOAD_WIDTH        64						//Payload宽度：     64bytes(最大支持32或者64bytes)				
+#define         PAYLOAD_WIDTH        32						//Payload宽度：     64bytes(最大支持32或者64bytes)				
 #define         TRANSMIT_TYPE        TRANS_ENHANCE_MODE		//TRANS_BURST_MODE 	//使用增强型模式           TRANS_BURST_MODE    TRANS_ENHANCE_MODE
 #define         DATA_RATE            DR_1M                	//通信速率1Mbps     DR_2M    DR_1M
 #define         RF_POWER             (RF13dBm|DATA_RATE)	//发射功率13dBm 
@@ -46,7 +46,7 @@
 #define		CE_FSPI_OFF	        0xFC                        // CE LOW
 #define		RST_FSPI	        0x53                        // RESET
 #define		NOP_N				0xFF
-#define     TX_DS               0x20      
+#define     XN297_TX_DS         0x20      
 
 /******************CONTROL  REGISTER*********************/
 #define		CONFIG              0x00            

@@ -1,13 +1,15 @@
 #include "string.h"
 #include "stdio.h"
 #include "stdbool.h"
-#include "led.h"
 #include "stm32f10x_it.h"
+#include "led.h"
 #include "xn297.h"
+#include "nrf24l01.h"
+#include "lt8900.h"
 #include "protocol.h"
 #include "stmflash.h"
 
-u8 TX_ADDRESS_DEF[5] = {0,0,0,0,0};
+u8 TX_ADDRESS_DEF[5] = {0,0,0,0,9};
 u8 TX_Channel_DEF[4] = {10,20,30,40};
 
 golbal_flag flag;
@@ -33,6 +35,7 @@ void modifyAddress(void)
 		flag.TX_Addr[0] = 0x2a;//
 		flag.TX_Addr[1] = flag.ADDR_Channel[1];
 		flag.TX_Addr[2] = flag.ADDR_Channel[1]>>8;
+		 
 		flag.TX_Addr[3] = flag.ADDR_Channel[2];
 		flag.TX_Addr[4] = flag.ADDR_Channel[2]>>8;
 		flag.TX_Addr[5] = 0;//useless?
@@ -58,20 +61,28 @@ void modifyAddress(void)
 		i = !i;
 		LedSet(5,i);
 	}
-
-
+	
 }
 
 
 void rx_send(void)
 {
 	static u8 count;
-	memcpy(RX_DATA_BUF,&remoteData,sizeof(remoteData));
-	XN297_TxData(RX_DATA_BUF, sizeof(remoteData));
-	XN297_SetChannel(flag.TX_Channel[count & 0x11]);//切换到下一信道
-	count++;
 	
-
+#ifdef NRF24L01
+	memcpy(RX_DATA_BUF,&remoteData,sizeof(remoteData));
+	NRF24L01_TxPacket(RX_DATA_BUF);
+#endif
+	
+#ifdef XN297
+	XN297_TxData(RX_DATA_BUF, sizeof(remoteData));
+#endif
+	
+#ifdef LT8900
+	LT8900_Send_Date(RX_DATA_BUF,sizeof(remoteData));
+#endif
+	//XN297_SetChannel(flag.TX_Channel[count & 0x11]);//切换到下一信道
+	count++;
 	
 }
 
